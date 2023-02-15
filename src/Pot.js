@@ -7,6 +7,9 @@ import { ReactComponent as Github } from './icons/github.svg';
 import { ReactComponent as Instagram } from './icons/instagram.svg';
 import { ReactComponent as Linkedin } from './icons/linkedin.svg';
 import { useParams } from "react-router-dom"
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function FadeInSection(props) {
@@ -47,7 +50,7 @@ function FadeInSection2(props) {
     );
 }
 
-function FadeInSection3(props) {
+function FadeInSection3(props, key) {
     const [isVisible, setVisible] = useState(false);
     const domRef = useRef();
     useEffect(() => {
@@ -57,7 +60,7 @@ function FadeInSection3(props) {
         observer.observe(domRef.current);
     }, []);
     return (
-        <div
+        <div key={key}
             className={`fade-in-section3 ${isVisible ? 'is-visible' : ''}`}
             ref={domRef}
         >
@@ -70,15 +73,106 @@ function Pot() {
 
     const [nav, setNav] = useState()
     const [bg, setBg] = useState()
+    const [data, setData] = useState({
+        "title": [],
+        "Project": [],
+        "Career": [],
+        "Award": [],
+    })
+    const [available, setAvailable] = useState(false)
+    const [words, setWords] = useState([])
+    const [fname, setFname] = useState()
+    const [socials, setSocials] = useState({
+        "github": "",
+        "twitter": "",
+        "linkedin": "",
+        "facebook": "",
+        "instagram": ""
+    })
+    const [email, setEmail] = useState()
+    const messageEmail = useRef()
+    const messageTitle = useRef()
+    const messageBody = useRef()
+
+    const [mail, setMail] = useState("")
+    const [valid, setValid] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const { name } = useParams()
-    console.log(name)
 
-    const words = [
-        'I am a Software Developer',
-        'I am an Editor',
-        'I am a Data Analyst',
-    ]
+
+    useEffect(() => {
+        async function getUser() {
+            setLoading(true)
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/user/${name}`, {
+                    headers: {
+                        'accept': 'application/json'
+                    }
+                });
+
+                if (!!response.data) {
+                    if (response.data.status === "OK") {
+                        setData(response.data.result.data)
+                        setAvailable(true)
+                        setLoading(false)
+                        setWords(response.data.result.data.title)
+                        setFname(response.data.result.name)
+                        setSocials(response.data.result.socials)
+                        setEmail(response.data.result.email)
+                    } else if (response.data.status === "error") {
+                        setLoading(false)
+                        setAvailable(false)
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+                setLoading(false)
+                setAvailable(false)
+            }
+        }
+        getUser()
+    }, [name])
+
+    async function sendEmail(sender, receiver, title, body) {
+        const response = await axios.post(
+            'http://127.0.0.1:8000/user/send_email',
+            '',
+            {
+                params: {
+                    sender: sender,
+                    receiver: receiver,
+                    title: title,
+                    body: body
+                },
+                headers: {
+                    'accept': 'application/json'
+                }
+            }
+        );
+
+        if (!!response.data) {
+            if (response.data.status === "OK") {
+                toast.success('Message Sent', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                    className: 'foo-bar'
+                });
+                messageTitle.current.value = ""
+                messageBody.current.value = ""
+            }
+        }
+    }
+
+    const handleChange = (e) => {
+        setMail(e.target.value)
+        const pattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        setValid(pattern.test(e.target.value))
+    }
+
+    const handleSendMessage = () => {
+        sendEmail(messageEmail.current.value, email, messageTitle.current.value, messageBody.current.value)
+    }
+
 
     const changeNavBg = () => {
         // console.log(window.scrollY)
@@ -104,8 +198,8 @@ function Pot() {
     window.addEventListener("scroll", changeNavBg)
 
     return (
-        <div className="App" style={bg}>
-            <nav className="nav-wrapper">
+        <div className="App" style={bg}>{available ?
+            <><nav className="nav-wrapper">
                 <ul className="nav" style={bg}>
                     <li>
                         <a href="#home" onClick={handleClick} className={nav === "#home" ? "active" : ""}>Home</a>
@@ -121,164 +215,169 @@ function Pot() {
                     </li>
                 </ul>
             </nav>
-            <div className="main">
-                <div className="home" id="home">
-                    <div className="image">
-                        <FadeInSection2>
-                            <img src={require('./good1.svg').default} alt="PIC" />
-                        </FadeInSection2>
-                    </div>
-                    <div className="home-text">
-                        <FadeInSection>
-                            <h3>
-                                Badassou Mawuli
-                            </h3>
-                            <div>
-                                <TypeWriterEffect
-                                    textStyle={{
-                                        fontFamily: 'Red Hat Display',
-                                        color: '#f4d47c',
-                                        fontWeight: 500,
-                                        fontSize: '2.0em',
-                                    }}
-                                    startDelay={2000}
-                                    cursorColor="red"
-                                    multiText={words}
-                                    multiTextDelay={2000}
-                                    typeSpeed={30}
-                                    hideCursorAfterText={true}
-                                />
-                            </div>
-                        </FadeInSection>
-                    </div>
-                </div>
-                <div className="career" id="career">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <h3 style={{ borderBottom: '1px solid black' }}>Career</h3>
-                    </div>
-                    <div className="career-c">
-                        <div className="education">
+                <div className="main">
+                    <div className="home" id="home">
+                        <div className="image">
                             <FadeInSection2>
-                                <h3>EDUCATION</h3>
-                                <ul>
-                                    <li>West Africa SHS -{">"} 2015 - 2018</li>
-                                    <li>University Of Ghana -{">"} 2019 - 2023</li>
-                                </ul>
+                                <img src={require('./good1.svg').default} alt="PIC" />
                             </FadeInSection2>
                         </div>
-                        <div className="work">
+                        <div className="home-text">
                             <FadeInSection>
-                                <h3>WORK</h3>
-                                <ul>
-                                    <li>Intern at 4th-IR -{">"} 2022 - 2023</li>
-                                </ul>
-                            </FadeInSection>
-                        </div>
-                        <div className="awards">
-                            <FadeInSection2>
-                                <h3>AWARDS</h3>
-                            </FadeInSection2>
-                        </div>
-                        <div className="skills">
-                            <FadeInSection>
-                                <h3>SKILLS</h3>
-                                <ul>
-                                    <li>Python Programing</li>
-                                </ul>
+                                <h3>
+                                    {fname}
+                                </h3>
+                                <div>
+                                    <TypeWriterEffect
+                                        textStyle={{
+                                            fontFamily: 'Red Hat Display',
+                                            color: '#f4d47c',
+                                            fontWeight: 500,
+                                            fontSize: '2.0em',
+                                        }}
+                                        startDelay={2000}
+                                        cursorColor="red"
+                                        multiText={words}
+                                        multiTextDelay={2000}
+                                        typeSpeed={30}
+                                        hideCursorAfterText={true} />
+                                </div>
                             </FadeInSection>
                         </div>
                     </div>
-                </div>
-                <div className="project" id="project">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <h3 style={{ borderBottom: '1px solid black' }}>Project</h3>
+                    <div className="career" id="career">
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <h3 style={{ borderBottom: '1px solid black' }}>Career</h3>
+                        </div>
+                        <div className="career-c">
+                            {!!data.Career & data.Career?.length !== 0 ? <div className="education">
+                                <FadeInSection2>
+                                    <h3>EDUCATION</h3>
+                                    <ul>
+                                        {data.Career.map((t, index) => {
+                                            return (
+
+                                                <li key={index}>{t.title} -{">"} {t.start} - {t.end}</li>
+                                            );
+                                        }
+                                        )}
+                                    </ul>
+                                </FadeInSection2>
+                            </div> : ""}
+                            {!!data.Work & data.Work?.length !== 0 ? <div className="work">
+                                <FadeInSection>
+                                    <h3>WORK</h3>
+                                    <ul>{data.Work.map((t, index) => {
+                                        return (
+
+                                            <li key={index}>{t.title} -{">"} {t.start} - {t.end}</li>
+
+                                        );
+                                    }
+                                    )}
+                                    </ul>
+                                </FadeInSection>
+                            </div> : ""}
+                            {!!data.Award & data.Award?.length !== 0 ? <div className="awards">
+                                <FadeInSection2>
+                                    <h3>AWARDS</h3>
+                                    <ul>
+                                        {data.Award.map((t, index) => {
+                                            return (
+
+                                                <li key={index}>{t.title} -{">"} {t.start} - {t.end}</li>
+                                            );
+                                        }
+                                        )}
+                                    </ul>
+                                </FadeInSection2>
+                            </div> : ""}
+                            {!!data.Skill & data.Skill?.length !== 0 ? <div className="skills">
+                                <FadeInSection>
+                                    <h3>SKILLS</h3>
+                                    <ul>
+                                        {data.Skill.map((t, index) => {
+                                            return (
+                                                <li key={index}>{t}</li>
+                                            );
+                                        }
+                                        )}
+                                    </ul>
+                                </FadeInSection>
+                            </div> : ""}
+                        </div>
                     </div>
-                    <div className="project-c">
-                        <FadeInSection3>
-                            <div className="card border-dark mb-3" style={{ maxWidth: "80%", height: "100%" }}>
-                                <a href="#project" style={{ textDecoration: "none" }}>
-                                    <div className="card-header" style={{ color: "black" }}>Header1</div>
-                                    <div className="card-body text-dark">
-                                        <h5 className="card-title">Dark card title</h5>
-                                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    </div>
-                                </a>
+                    <div className="project" id="project">
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <h3 style={{ borderBottom: '1px solid black' }}>Project</h3>
+                        </div>
+                        <div className="project-c">
+                            {!!data.Project ? data.Project.map((t, index) => {
+                                return (
+                                    <FadeInSection3 key={index}>
+                                        <div className="card border-dark mb-3" style={{ maxWidth: "80%", height: "100%" }}>
+                                            <a href={t.link} style={{ textDecoration: "none" }}>
+                                                <div className="card-header" style={{ color: "black" }}>{t.tool}</div>
+                                                <div className="card-body text-dark">
+                                                    <h5 className="card-title">{t.title}</h5>
+                                                    <p className="card-text">{t.desc}</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </FadeInSection3>
+                                );
+                            }
+                            ) : ""}
+                        </div>
+                    </div>
+                    <div className="contact" id="contact">
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <h3 style={{ borderBottom: '1px solid black' }}>Contact</h3>
+                        </div>
+                        <div className="contact-c">
+                            <div style={{ display: "flex", flexDirection: 'column' }}>
+                                <label>Email:</label>
+                                <input ref={messageEmail} type="email" onChange={handleChange} value={mail} style={{ width: "80%", height: 40 }} />
+                                {!valid & mail.length > 0 ? "Invalid" : ""}
                             </div>
-                        </FadeInSection3>
-                        <FadeInSection3>
-                            <div className="card border-dark mb-3" style={{ maxWidth: "80%", height: "100%" }}>
-                                <div className="card-header" style={{ color: "black" }}>Header2</div>
-                                <div className="card-body text-dark">
-                                    <h5 className="card-title">Dark card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
+                            <div style={{ display: "flex", flexDirection: 'column' }}>
+                                <label>Title:</label>
+                                <input ref={messageTitle} type="text" style={{ width: "80%", height: 40 }} />
                             </div>
-                        </FadeInSection3>
-                        <FadeInSection3>
-                            <div className="card border-dark mb-3" style={{ maxWidth: "80%", height: "100%" }}>
-                                <div className="card-header" style={{ color: "black" }}>Header3</div>
-                                <div className="card-body text-dark">
-                                    <h5 className="card-title">Dark card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
+                            <div style={{ display: "flex", flexDirection: 'column' }}>
+                                <label>Message:</label>
+                                <textarea ref={messageBody} type="text" style={{ width: "80%", height: 100 }} />
                             </div>
-                        </FadeInSection3>
-                        <FadeInSection3>
-                            <div className="card border-dark mb-3" style={{ maxWidth: "80%", height: "100%" }}>
-                                <div className="card-header" style={{ color: "black" }}>Header4</div>
-                                <div className="card-body text-dark">
-                                    <h5 className="card-title">Dark card title</h5>
-                                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </FadeInSection3>
-                    </div>
-                </div>
-                <div className="contact" id="contact">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <h3 style={{ borderBottom: '1px solid black' }}>Contact</h3>
-                    </div>
-                    <div className="contact-c">
-                        <div style={{ display: "flex", flexDirection: 'column' }}>
-                            <label>Email:</label>
-                            <input type="email" style={{ width: "80%", height: 40 }} />
                         </div>
-                        <div style={{ display: "flex", flexDirection: 'column' }}>
-                            <label>Title:</label>
-                            <input type="text" style={{ width: "80%", height: 40 }} />
+                        <div className="send">
+                            {valid ? <button title="Send" onClick={handleSendMessage}>Send</button> :
+                                <button title="Send" onClick={handleSendMessage} disabled>Send</button>}
                         </div>
-                        <div style={{ display: "flex", flexDirection: 'column' }}>
-                            <label>Message:</label>
-                            <textarea type="text" style={{ width: "80%", height: 100 }} />
+                        <div className="social">
+                            {socials.linkedin !== "" ? <div className="handles">
+                                <a href={socials.linkedin}><span className='icon-button'><Linkedin /></span></a>
+                            </div> : ""}
+                            {socials.github !== "" ? <div className="handles">
+                                <a href={socials.github}><span className='icon-button'><Github /></span></a>
+                            </div> : ""}
+                            {socials.twitter !== "" ? <div className="handles">
+                                <a href={socials.twitter}><span className='icon-button'><Twitter /></span></a>
+                            </div> : ""}
+                            {socials.facebook !== "" ? <div className="handles">
+                                <a href={socials.facebook}><span className='icon-button'><Facebook /></span></a>
+                            </div> : ""}
+                            {socials.instagram !== "" ? <div className="handles">
+                                <a href={socials.instagram}><span className='icon-button'><Instagram /></span></a>
+                            </div> : ""}
                         </div>
                     </div>
-                    <div className="send">
-                        <button title="Send" >Send</button>
+                    <div>
+                        <footer>
+                            Copyright 2021 {"BM Portfolio"}
+                        </footer>
                     </div>
-                    <div className="social">
-                        <div className="handles">
-                            <a><span className='icon-button'><Linkedin /></span></a>
-                        </div>
-                        <div className="handles">
-                            <a><span className='icon-button'><Github /></span></a>
-                        </div>
-                        <div className="handles">
-                            <a><span className='icon-button'><Twitter /></span></a>
-                        </div>
-                        <div className="handles">
-                            <a><span className='icon-button'><Facebook /></span></a>
-                        </div>
-                        <div className="handles">
-                            <a><span className='icon-button'><Instagram /></span></a>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <footer>
-                        Copyright 2021 {"BM Portfolio"}
-                    </footer>
-                </div>
-            </div>
+                </div><ToastContainer /></> : ""} {loading ? <><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loading...</div></> : ""
+            } {!available & !loading ? <><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}><h1>Page Does Not Exist</h1></div></> : ""}
         </div>
     );
 }
