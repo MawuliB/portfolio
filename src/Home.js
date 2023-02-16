@@ -117,7 +117,7 @@ export default function Home() {
                 }
             }))
         } else {
-            if (data.title.length !== 0 | data.Award.length !== 0 | data.Career.length !== 0 | data.Project.length !== 0) {
+            if (data.title?.length !== 0 | data.Award?.length !== 0 | data.Career?.length !== 0 | data.Project?.length !== 0) {
                 localStorage.setItem('param', JSON.stringify({
                     "parameter": {
                         "name": name.current.value,
