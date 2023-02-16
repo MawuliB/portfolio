@@ -105,7 +105,7 @@ function Pot() {
         async function getUser() {
             setLoading(true)
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/user/${name}`, {
+                const response = await axios.get(`https://portfolio-api-production-df67.up.railway.app/user/${name}`, {
                     headers: {
                         'accept': 'application/json'
                     }
@@ -136,7 +136,7 @@ function Pot() {
 
     async function sendEmail(sender, receiver, title, body) {
         const response = await axios.post(
-            'http://127.0.0.1:8000/user/send_email',
+            'https://portfolio-api-production-df67.up.railway.app/user/send_email',
             '',
             {
                 params: {
@@ -192,7 +192,7 @@ function Pot() {
 
 
     const handleClick = (event) => {
-        setNav(event.target.href.substr(22))
+        setNav(event.target.href.substr(53))
     }
 
     window.addEventListener("scroll", changeNavBg)

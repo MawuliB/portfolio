@@ -54,7 +54,7 @@ export default function Home() {
     const [loading1, setLoading1] = useState(false)
 
     async function getEmails() {
-        const response = await axios.get('http://127.0.0.1:8000/user/email', {
+        const response = await axios.get('https://portfolio-api-production-df67.up.railway.app/user/email', {
             headers: {
                 'accept': 'application/json'
             }
@@ -307,7 +307,7 @@ export default function Home() {
 
     async function createUser(p) {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/user/create', p, {
+            const response = await axios.post('https://portfolio-api-production-df67.up.railway.app/user/create', p, {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -345,7 +345,7 @@ export default function Home() {
 
     async function updateUser(p) {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/user/update', p, {
+            const response = await axios.post('https://portfolio-api-production-df67.up.railway.app/user/update', p, {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -402,7 +402,7 @@ export default function Home() {
 
     async function getUser(email, code) {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/user/${email}/${code}`, {
+            const response = await axios.get(`https://portfolio-api-production-df67.up.railway.app/user/${email}/${code}`, {
                 headers: {
                     'accept': 'application/json'
                 }
