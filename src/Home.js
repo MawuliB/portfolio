@@ -1105,7 +1105,17 @@ export default function Home() {
                             </h2>
                             <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" >
                                 <div className="accordion-body">
-                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    <strong>Welcome to our portfolio creation website!</strong> To get started, enter a valid email address in the provided field.<br />
+
+                                    Make sure to enter a correct email address that you have access to. While providing additional information is recommended, it's not compulsory. However, this information can help us better serve your needs.<br />
+
+                                    If the email address you've entered is already in use, you won't be able to use it to create a new account. Each account must have a unique email address associated with it. If you encounter this error message, try using a different email address or contact our customer support for assistance.<br />
+
+                                    After entering a valid email address, you can begin building your portfolio. Once you've created your portfolio, you can access it at any time without needing to log in.<br />
+
+                                    To start creating your portfolio, simply follow the instructions and prompts. When you're ready to publish your portfolio, click the "Build site" button and your portfolio will be live for the world to see!<br />
+
+                                    <em>In summary, to get started with our portfolio creation website, enter a valid email address. Providing additional information is optional, but it can help us better serve your needs. If the email address is already in use, use a different one or contact customer support. Once you've entered a valid email address, follow the instructions to create your portfolio. When you're ready to publish your portfolio, click the "Build site" button and your portfolio will be live for the world to see!</em>
                                 </div>
                             </div>
                         </div>
@@ -1117,7 +1127,13 @@ export default function Home() {
                             </h2>
                             <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" >
                                 <div className="accordion-body">
-                                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    <strong>To update your portfolio site</strong>, you'll need to have the email address you used to create the site, as well as the secret code that was sent to you upon creation.<br />
+
+                                    Once you have those details, simply log in to your account using the "Edit Site" button on the website. From there, you can update your portfolio, change your bio, add new projects, or make any other changes you'd like.<br />
+
+                                    Remember to keep your secret code safe and secure, as it serves as an important security measure to ensure that only you have access to your account. If you've lost your secret code, you can request a new one by contacting our customer support team.<br />
+
+                                    We're excited to see the amazing updates you'll make to your portfolio site! If you have any questions or need assistance, don't hesitate to reach out to our support team.
                                 </div>
                             </div>
                         </div>
