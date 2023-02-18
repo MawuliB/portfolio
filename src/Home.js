@@ -815,7 +815,7 @@ export default function Home() {
                                         </div>
                                         <div style={{ display: "flex", flexDirection: 'column' }}>
                                             <label>Secret Code:</label>
-                                            <input type="text" ref={code} style={{ width: "80%", height: 30 }} />
+                                            <input type="password" ref={code} style={{ width: "80%", height: 30 }} />
                                         </div>
                                         <div style={{ display: "flex", flexDirection: 'column' }}>
                                             {valid | verifyEmail ? <button type='button' onClick={fetchData} className="btn btn-primary" style={{ width: "50%", height: 30, display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}
