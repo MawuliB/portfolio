@@ -1129,7 +1129,7 @@ export default function Home() {
                                 <div className="accordion-body">
                                     <strong>To update your portfolio site</strong>, you'll need to have the email address you used to create the site, as well as the secret code that was sent to you upon creation.<br />
 
-                                    Once you have those details, simply log in to your account using the "Edit Site" button on the website. From there, you can update your portfolio, change your bio, add new projects, or make any other changes you'd like.<br />
+                                    Once you have those details, simply load your account using the "Fetch Data" button on the Update Portfolio Tab site on the website. From there, you can update your portfolio, change your bio, add new projects, or make any other changes you'd like.<br />
 
                                     Remember to keep your secret code safe and secure, as it serves as an important security measure to ensure that only you have access to your account. If you've lost your secret code, you can request a new one by contacting our customer support team.<br />
 
@@ -1145,7 +1145,11 @@ export default function Home() {
                             </h2>
                             <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" >
                                 <div className="accordion-body">
-                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    As part of our efforts to provide you with top-notch security, we utilize local storage to securely store your data. However, if you suspect that your secret code has been compromised, we strongly recommend that you update your portfolio to generate a new one.<br />
+
+                                    In case you encounter any problems or have any questions about our site, please do not hesitate to contact us by sending an email. We value your feedback and look forward to hearing from you.<br />
+
+                                    Please note that our website is still under development and we are constantly working to improve it. We appreciate your patience and understanding as we continue to refine our platform.
                                 </div>
                             </div>
                         </div>
