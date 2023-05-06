@@ -285,7 +285,7 @@ function Pot() {
                                         {data.Award.map((t, index) => {
                                             return (
 
-                                                <li key={index}>{t.title} -{">"} {t.start} - {t.end}</li>
+                                                <li key={index}>{t.title} {"at "} {t.loc} {"in "} {t.year}</li>
                                             );
                                         }
                                         )}
