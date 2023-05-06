@@ -257,7 +257,7 @@ function Pot() {
                                         {data.Career.map((t, index) => {
                                             return (
 
-                                                <li key={index}>{t.title} -{">"} {t.start} - {t.end}</li>
+                                                <li key={index}>{t.title} {"from "} {t.start} {"to "} {t.end}</li>
                                             );
                                         }
                                         )}
@@ -270,7 +270,7 @@ function Pot() {
                                     <ul>{data.Work.map((t, index) => {
                                         return (
 
-                                            <li key={index}>{t.title} -{">"} {t.start} - {t.end}</li>
+                                            <li key={index}>{t.title} {"from "} {t.start} {"to "} {t.end}</li>
 
                                         );
                                     }
