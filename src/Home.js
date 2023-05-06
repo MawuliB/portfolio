@@ -23,6 +23,11 @@ export default function Home() {
     const [verifyEmail, setVerifyEmail] = useState(false)
     const [emails, setEmails] = useState()
     const [valid, setValid] = useState(false)
+
+    const messageEmail = useRef()
+    const messageTitle = useRef()
+    const messageBody = useRef()
+
     let titleRef = useRef()
     let projectTitle = useRef()
     let projectTool = useRef()
@@ -148,10 +153,42 @@ export default function Home() {
 
     useEffect(() => {
         if (valid) {
-            setVerifyEmail(emails.includes(mail))
+            setVerifyEmail(emails?.includes(mail))
         }
     }, [valid, emails, mail])
 
+    async function sendEmail(sender, receiver, title, body) {
+        const response = await axios.post(
+            'https://portfolio-api-production-df67.up.railway.app/user/send_email',
+            '',
+            {
+                params: {
+                    sender: sender,
+                    receiver: receiver,
+                    title: title,
+                    body: body
+                },
+                headers: {
+                    'accept': 'application/json'
+                }
+            }
+        );
+
+        if (!!response.data) {
+            if (response.data.status === "OK") {
+                toast.success('Message Sent', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                    className: 'foo-bar'
+                });
+                messageTitle.current.value = ""
+                messageBody.current.value = ""
+            }
+        }
+    }
+
+    const handleSendMessage = () => {
+        sendEmail(messageEmail.current.value, "mawulibadassou5@gmail.com", messageTitle.current.value, messageBody.current.value)
+    }
 
     const handleClick = () => {
         setToggle(!toggle)
@@ -402,6 +439,7 @@ export default function Home() {
 
     async function getUser(email, code) {
         try {
+            console.log(code)
             const response = await axios.get(`https://portfolio-api-production-df67.up.railway.app/user/${email}/${code}`, {
                 headers: {
                     'accept': 'application/json'
@@ -1153,6 +1191,30 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className="contact" id="contact">
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <h3 style={{ borderBottom: '1px solid black' }}>Contact</h3>
+                    </div>
+                    <div className="contact-c">
+                        <div style={{ display: "flex", flexDirection: 'column' }}>
+                            <label>Email:</label>
+                            <input ref={messageEmail} type="email" onChange={handleChange} value={mail} style={{ width: "80%", height: 40 }} />
+                            {!valid & mail.length > 0 ? "Invalid" : ""}
+                        </div>
+                        <div style={{ display: "flex", flexDirection: 'column' }}>
+                            <label>Title:</label>
+                            <input ref={messageTitle} type="text" style={{ width: "80%", height: 40 }} />
+                        </div>
+                        <div style={{ display: "flex", flexDirection: 'column' }}>
+                            <label>Message:</label>
+                            <textarea ref={messageBody} type="text" style={{ width: "80%", height: 100 }} />
+                        </div>
+                    </div>
+                    <div className="send">
+                        {valid ? <button title="Send" onClick={handleSendMessage}>Send</button> :
+                            <button title="Send" onClick={handleSendMessage} disabled>Send</button>}
                     </div>
                 </div>
             </div>
