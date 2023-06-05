@@ -1186,36 +1186,12 @@ export default function Home() {
                                 <div className="accordion-body">
                                     As part of our efforts to provide you with top-notch security, we utilize local storage to securely store your data. However, if you suspect that your secret code has been compromised, we strongly recommend that you update your portfolio to generate a new one.<br />
 
-                                    In case you encounter any problems or have any questions about our site, please do not hesitate to contact us by sending an email. We value your feedback and look forward to hearing from you.<br />
+                                    In case you encounter any problems or have any questions about our site, please do not hesitate to contact us by sending an <a href="mailto:mawulibadassou5@gmail.com">Email</a>. We value your feedback and look forward to hearing from you.<br />
 
                                     Please note that our website is still under development and we are constantly working to improve it. We appreciate your patience and understanding as we continue to refine our platform.
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="contact" id="contact">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <h3 style={{ borderBottom: '1px solid black' }}>Contact</h3>
-                    </div>
-                    <div className="contact-c">
-                        <div style={{ display: "flex", flexDirection: 'column' }}>
-                            <label>Email:</label>
-                            <input ref={messageEmail} type="email" onChange={handleChange} value={mail} style={{ width: "80%", height: 40 }} />
-                            {!valid & mail.length > 0 ? "Invalid" : ""}
-                        </div>
-                        <div style={{ display: "flex", flexDirection: 'column' }}>
-                            <label>Title:</label>
-                            <input ref={messageTitle} type="text" style={{ width: "80%", height: 40 }} />
-                        </div>
-                        <div style={{ display: "flex", flexDirection: 'column' }}>
-                            <label>Message:</label>
-                            <textarea ref={messageBody} type="text" style={{ width: "80%", height: 100 }} />
-                        </div>
-                    </div>
-                    <div className="send">
-                        {valid ? <button title="Send" onClick={handleSendMessage}>Send</button> :
-                            <button title="Send" onClick={handleSendMessage} disabled>Send</button>}
                     </div>
                 </div>
             </div>
