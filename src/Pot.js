@@ -71,6 +71,7 @@ function FadeInSection3(props, key) {
 
 function Pot() {
 
+    const generalLink = "https://portfolio-api-two.vercel.app/"
     const [nav, setNav] = useState()
     const [bg, setBg] = useState()
     const [data, setData] = useState({
@@ -105,7 +106,7 @@ function Pot() {
         async function getUser() {
             setLoading(true)
             try {
-                const response = await axios.get(`https://portfolio-api-production-df67.up.railway.app/user/${name}`, {
+                const response = await axios.get(`${generalLink}user/${name}`, {
                     headers: {
                         'accept': 'application/json'
                     }
@@ -136,7 +137,7 @@ function Pot() {
 
     async function sendEmail(sender, receiver, title, body) {
         const response = await axios.post(
-            'https://portfolio-api-production-df67.up.railway.app/user/send_email',
+            `${generalLink}user/send_email`,
             '',
             {
                 params: {

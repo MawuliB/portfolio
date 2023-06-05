@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Home() {
+    const generalLink = "https://portfolio-api-two.vercel.app/"
 
     const [toggle, setToggle] = useState(false)
     const [toggle1, setToggle1] = useState(false)
@@ -59,7 +60,7 @@ export default function Home() {
     const [loading1, setLoading1] = useState(false)
 
     async function getEmails() {
-        const response = await axios.get('https://portfolio-api-production-df67.up.railway.app/user/email', {
+        const response = await axios.get(`${generalLink}user/email`, {
             headers: {
                 'accept': 'application/json'
             }
@@ -159,7 +160,7 @@ export default function Home() {
 
     async function sendEmail(sender, receiver, title, body) {
         const response = await axios.post(
-            'https://portfolio-api-production-df67.up.railway.app/user/send_email',
+            `${generalLink}user/send_email`,
             '',
             {
                 params: {
@@ -344,7 +345,7 @@ export default function Home() {
 
     async function createUser(p) {
         try {
-            const response = await axios.post('https://portfolio-api-production-df67.up.railway.app/user/create', p, {
+            const response = await axios.post(`${generalLink}user/create`, p, {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -382,7 +383,7 @@ export default function Home() {
 
     async function updateUser(p) {
         try {
-            const response = await axios.post('https://portfolio-api-production-df67.up.railway.app/user/update', p, {
+            const response = await axios.post(`${generalLink}user/update`, p, {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -440,7 +441,7 @@ export default function Home() {
     async function getUser(email, code) {
         try {
             console.log(code)
-            const response = await axios.get(`https://portfolio-api-production-df67.up.railway.app/user/${email}/${code}`, {
+            const response = await axios.get(`${generalLink}user/${email}/${code}`, {
                 headers: {
                     'accept': 'application/json'
                 }
