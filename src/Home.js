@@ -26,8 +26,8 @@ export default function Home() {
     const [valid, setValid] = useState(false)
 
     // const messageEmail = useRef()
-    const messageTitle = useRef()
-    const messageBody = useRef()
+    // const messageTitle = useRef()
+    // const messageBody = useRef()
 
     let titleRef = useRef()
     let projectTitle = useRef()
