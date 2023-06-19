@@ -71,7 +71,7 @@ function FadeInSection3(props, key) {
 
 function Pot() {
 
-    const generalLink = "https://portfolio-api-two.vercel.app/"
+    const generalLink = "https://portfolio-pi93.onrender.com/"
     const [nav, setNav] = useState()
     const [bg, setBg] = useState()
     const [data, setData] = useState({

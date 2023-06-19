@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Home() {
-    const generalLink = "https://portfolio-api-two.vercel.app/"
+    const generalLink = "https://portfolio-pi93.onrender.com/"
 
     const [toggle, setToggle] = useState(false)
     const [toggle1, setToggle1] = useState(false)
