@@ -25,7 +25,7 @@ export default function Home() {
     const [emails, setEmails] = useState()
     const [valid, setValid] = useState(false)
 
-    const messageEmail = useRef()
+    // const messageEmail = useRef()
     const messageTitle = useRef()
     const messageBody = useRef()
 
@@ -158,34 +158,34 @@ export default function Home() {
         }
     }, [valid, emails, mail])
 
-    async function sendEmail(sender, receiver, title, body) {
-        const response = await axios.post(
-            `${generalLink}user/send_email`,
-            '',
-            {
-                params: {
-                    sender: sender,
-                    receiver: receiver,
-                    title: title,
-                    body: body
-                },
-                headers: {
-                    'accept': 'application/json'
-                }
-            }
-        );
+    // async function sendEmail(sender, receiver, title, body) {
+    //     const response = await axios.post(
+    //         `${generalLink}user/send_email`,
+    //         '',
+    //         {
+    //             params: {
+    //                 sender: sender,
+    //                 receiver: receiver,
+    //                 title: title,
+    //                 body: body
+    //             },
+    //             headers: {
+    //                 'accept': 'application/json'
+    //             }
+    //         }
+    //     );
 
-        if (!!response.data) {
-            if (response.data.status === "OK") {
-                toast.success('Message Sent', {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                    className: 'foo-bar'
-                });
-                messageTitle.current.value = ""
-                messageBody.current.value = ""
-            }
-        }
-    }
+    //     if (!!response.data) {
+    //         if (response.data.status === "OK") {
+    //             toast.success('Message Sent', {
+    //                 position: toast.POSITION.BOTTOM_RIGHT,
+    //                 className: 'foo-bar'
+    //             });
+    //             messageTitle.current.value = ""
+    //             messageBody.current.value = ""
+    //         }
+    //     }
+    // }
 
     // const handleSendMessage = () => {
     //     sendEmail(messageEmail.current.value, "mawulibadassou5@gmail.com", messageTitle.current.value, messageBody.current.value)
