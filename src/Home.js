@@ -187,9 +187,9 @@ export default function Home() {
         }
     }
 
-    const handleSendMessage = () => {
-        sendEmail(messageEmail.current.value, "mawulibadassou5@gmail.com", messageTitle.current.value, messageBody.current.value)
-    }
+    // const handleSendMessage = () => {
+    //     sendEmail(messageEmail.current.value, "mawulibadassou5@gmail.com", messageTitle.current.value, messageBody.current.value)
+    // }
 
     const handleClick = () => {
         setToggle(!toggle)
