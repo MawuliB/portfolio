@@ -196,6 +196,10 @@ function Pot() {
         setNav(event.target.href.substr(53))
     }
 
+    const handleReload = () => {
+        window.location.reload();
+    }
+
     window.addEventListener("scroll", changeNavBg)
 
     return (
@@ -378,7 +382,11 @@ function Pot() {
                         </footer>
                     </div>
                 </div><ToastContainer /></> : ""} {loading ? <><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loading...</div></> : ""
-            } {!available & !loading ? <><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}><h1>Page Does Not Exist</h1></div></> : ""}
+            } {!available & !loading ? <><div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <p><h1>Page Does Not Exist</h1>
+                </p>
+                <p>Or <button onClick={handleReload}>Reload</button> Once, If Not, Page Does Not Really Exist</p>
+            </div></> : ""}
         </div>
     );
 }
